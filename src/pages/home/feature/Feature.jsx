@@ -27,7 +27,7 @@ const Feature = () => {
             iusto asperiores repellendus reprehenderit voluptates blanditiis
             veritatis.
           </p>
-          <button className="btn btn-outline border-white text-white border-0 border-b-4">Default</button>
+          <button className="btn btn-outline border-white text-white border-0 border-b-4 mt-4">Read More</button>
         </div>
       </div>
     </section>

@@ -7,7 +7,10 @@ const Navbar = () => {
         <Link to='/'>HOME</Link>
       </li>
       <li>
-        <Link to='/ourMenu'>OUR MENU</Link>
+        <Link to='/menu'>OUR MENU</Link>
+      </li>
+      <li>
+        <Link to='/shop'>OUR SHOP</Link>
       </li>
     </>
   );
