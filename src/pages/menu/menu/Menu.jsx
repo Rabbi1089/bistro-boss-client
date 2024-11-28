@@ -4,11 +4,10 @@ import MenuCategory from "./MenuCategory";
 import Cover from "../../shared/cover/Cover";
 import SectionTitle from "../../../components/section title/SectionTitle";
 
-
 import img from "../../../assets/menu/dessert-bg.jpeg";
-import pizzaImg from '../../../assets/menu/pizza-bg.jpg'
-import saladImg from '../../../assets/menu/salad-bg.jpg'
-import soupImg from '../../../assets/menu/soup-bg.jpg'
+import pizzaImg from "../../../assets/menu/pizza-bg.jpg";
+import saladImg from "../../../assets/menu/salad-bg.jpg";
+import soupImg from "../../../assets/menu/soup-bg.jpg";
 
 const Menu = () => {
   const [menu] = UseMenu();
@@ -23,6 +22,7 @@ const Menu = () => {
       <Helmet>
         <title>Bistro Boss | Our Menu</title>
       </Helmet>
+      {/* ------------------------------------ main cover  start ------------------------------ */}
       <Cover
         img={img}
         title="our menu"
@@ -32,14 +32,13 @@ const Menu = () => {
         subHeading="Don't Miss"
         heading="Today's Offer"
       ></SectionTitle>
-      {/* main cover */}
-
       <MenuCategory items={offered}></MenuCategory>
+      {/* ------------------------------------ main cover end  ------------------------------ */}
       {/* DESSERTS */}
       <MenuCategory
         items={dessert}
         img={img}
-        title="DESSERTS"
+        title="dessert"
         subTitle="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
       ></MenuCategory>
 
@@ -50,7 +49,7 @@ const Menu = () => {
         title="pizza"
         subTitle="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
       ></MenuCategory>
-    {/* salad */}
+      {/* salad */}
 
       <MenuCategory
         items={salad}
@@ -59,7 +58,7 @@ const Menu = () => {
         subTitle="Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
       ></MenuCategory>
 
-          {/* soup */}
+      {/* soup */}
       <MenuCategory
         items={soup}
         img={soupImg}

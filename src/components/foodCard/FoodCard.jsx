@@ -4,16 +4,18 @@ const FoodCard = ({ item }) => {
   const { image, name, recipe, price } = item;
   console.log(item);
   return (
-    <div className="card bg-base-100 w-96 shadow-xl">
-      <figure className="px-10 pt-10">
+    <div className="card bg-base-100 w-96 h-[520px] shadow-xl">
+      <figure className="px-6 pt-6">
         <img src={image} alt="Shoes" className="rounded-xl" />
       </figure>
-      <p className=" absolute right-0 mt-8 mr-8 bg-slate-700 text-white rounded-sm p-2">${price}</p>
-      <div className="card-body items-center text-center">
+      <p className=" absolute right-0 mt-8 mr-8 bg-slate-700 text-white rounded-sm p-2">
+        ${price}
+      </p>
+      <div className="card-body flex flex-col items-center text-center">
         <h2 className="card-title">{name}</h2>
         <p>{recipe}</p>
         <div className="card-actions">
-          <button className="btn btn-primary">Buy Now</button>
+        <button className="btn btn-outline bg-slate-100  border-0 border-b-4 text-orange-500 border-orange-400 mt-4 uppercase">add to cart</button>
         </div>
       </div>
     </div>

@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import Cover from "../../shared/cover/Cover";
-import shopImg from "../../../assets/shop/banner2.jpg";
 import { Helmet } from "react-helmet-async";
+import shopImg from "../../../assets/shop/banner2.jpg";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import UseMenu from "../../../hooks/UseMenu";
-import OrderTab from "../order/orderTab/OrderTab";
 import { useParams } from "react-router-dom";
+import UseMenu from "../../../hooks/UseMenu";
+import OrderTab from "../orderTab/OrderTab";
 
-const Shop = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+const Order = () => {
   const [menu] = UseMenu();
-  const {category} = useParams();
-  console.log(category);
+  const Categories = ['salad', 'pizza', 'soup' , 'dessert' , 'drinks'];
+  const { category } = useParams();
+  const initialIndex = Categories.indexOf(category)
+  const [tabIndex, setTabIndex] = useState(initialIndex);
   const offered = menu.filter((items) => items.category === "offered");
   const dessert = menu.filter((items) => items.category === "dessert");
   const pizza = menu.filter((items) => items.category === "pizza");
@@ -46,15 +47,14 @@ const Shop = () => {
             {" "}
             <OrderTab items={pizza}></OrderTab>
           </TabPanel>
-
           <TabPanel>
-          <OrderTab items={soup}></OrderTab>
+            <OrderTab items={soup}></OrderTab>
           </TabPanel>
           <TabPanel>
-          <OrderTab items={dessert}></OrderTab>
+            <OrderTab items={dessert}></OrderTab>
           </TabPanel>
           <TabPanel>
-          <OrderTab items={drinks}></OrderTab>
+            <OrderTab items={drinks}></OrderTab>
           </TabPanel>
         </Tabs>
       </div>
@@ -62,4 +62,4 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+export default Order;
