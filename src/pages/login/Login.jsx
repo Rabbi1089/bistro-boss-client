@@ -1,14 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
-  LoadCanvasTemplateNoReload,
   validateCaptcha,
 } from "react-simple-captcha";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
   const capchaRef = useRef(null);
-  const [ disable , setDisable ] = useState(true)
+  const [disable, setDisable] = useState(true);
+
+  const { signInUser } = useContext(AuthContext);
+  console.log(signInUser);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -17,10 +20,9 @@ const Login = () => {
   const handleCapchaValidate = () => {
     const user_captcha_value = capchaRef.current.value;
     if (validateCaptcha(user_captcha_value)) {
-      setDisable(false)
-  }
-  }
-
+      setDisable(false);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +30,16 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
+    signInUser(email, password)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode , errorMessage);
+    });
   };
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -83,11 +95,20 @@ const Login = () => {
                 required
               />
               <label className="label">
-              <button onClick={handleCapchaValidate} className="btn btn-xs w-full">Validate</button>
+                <button
+                  onClick={handleCapchaValidate}
+                  className="btn btn-xs w-full"
+                >
+                  Validate
+                </button>
               </label>
             </div>
             <div className="form-control mt-6">
-              <button disabled={disable} type="submit" className="btn btn-primary">
+              <button
+                disabled={disable}
+                type="submit"
+                className="btn btn-primary"
+              >
                 Login
               </button>
             </div>
