@@ -1,20 +1,48 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../provider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  console.log(user);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        console.log("successfully log out");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.error(errorMessage);
+      });
+  };
   const navOptions = (
     <>
       <li>
-        <Link to='/'>HOME</Link>
+        <Link to="/">HOME</Link>
       </li>
       <li>
-        <Link to='/menu'>OUR MENU</Link>
+        <Link to="/menu">OUR MENU</Link>
       </li>
       <li>
-        <Link to='/Order/salad'>OUR SHOP</Link>
+        <Link to="/Contacts">Contacts</Link>
       </li>
       <li>
-        <Link to='/login'>Login</Link>
+        <Link to="/Order/salad">OUR SHOP</Link>
       </li>
+
+      {user ? (
+        <><p>{user.displayName}</p>
+          <li>
+            <a onClick={handleLogOut}>SignOut</a>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -51,7 +79,12 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <button
+            onClick={handleLogOut}
+            className=" btn btn-primary bg-gray-500 border-none hover:bg-red-100 hover:text-black"
+          >
+            SignOut
+          </button>
         </div>
       </div>
     </>

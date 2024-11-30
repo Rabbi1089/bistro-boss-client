@@ -1,24 +1,27 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../provider/AuthProvider";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
-  const capchaRef = useRef(null);
   const [disable, setDisable] = useState(true);
+  const { signIn, setUser } = useContext(AuthContext);
+  console.log(signIn);
 
-  const { signInUser } = useContext(AuthContext);
-  console.log(signInUser);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
 
-  const handleCapchaValidate = () => {
-    const user_captcha_value = capchaRef.current.value;
+  const handleCapchaValidate = (e) => {
+    const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value)) {
       setDisable(false);
     }
@@ -30,92 +33,100 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    signInUser(email, password)
-    .then((result) => {
-      const user = result.user;
-      console.log(user);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode , errorMessage);
-    });
+    signIn(email, password)
+      .then((result) => {
+        Swal.fire({
+          title: "Successfully logged in  !",
+          icon: "success",
+        });
+        const user = result.user;
+        setUser(user);
+        navigate(location.state || "/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse ">
-        <div className="text-center lg:text-left md:w-1/2">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi.
-          </p>
-        </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl md:w-1/2">
-          <form className="card-body" onSubmit={handleSubmit}>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                placeholder="email"
-                name="email"
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                placeholder="password"
-                name="password"
-                className="input input-bordered"
-                required
-              />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
-              </label>
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <LoadCanvasTemplate />
-              </label>
-              <input
-                type="text"
-                ref={capchaRef}
-                placeholder="write the text"
-                name="captcha"
-                className="input input-bordered"
-                required
-              />
-              <label className="label">
+    <>
+      <Helmet>
+        <title>Bistro Boss | Login</title>
+      </Helmet>
+      <div className="hero bg-base-200 min-h-screen">
+        <div className="hero-content flex-col lg:flex-row-reverse ">
+          <div className="text-center lg:text-left md:w-1/2">
+            <h1 className="text-5xl font-bold">Login now!</h1>
+            <p className="py-6">
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi.
+            </p>
+          </div>
+          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl md:w-1/2">
+            <form className="card-body" onSubmit={handleSubmit}>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="email"
+                  name="email"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  placeholder="password"
+                  name="password"
+                  className="input input-bordered"
+                  required
+                />
+                <label className="label">
+                  <a href="#" className="label-text-alt link link-hover">
+                    Forgot password?
+                  </a>
+                </label>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <LoadCanvasTemplate />
+                </label>
+                <input
+                  type="text"
+                  onBlur={handleCapchaValidate}
+                  placeholder="write the text"
+                  name="captcha"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control mt-6">
                 <button
-                  onClick={handleCapchaValidate}
-                  className="btn btn-xs w-full"
+                  disabled={disable}
+                  type="submit"
+                  className="btn btn-primary"
                 >
-                  Validate
+                  Login
                 </button>
-              </label>
-            </div>
-            <div className="form-control mt-6">
-              <button
-                disabled={disable}
-                type="submit"
-                className="btn btn-primary"
-              >
-                Login
-              </button>
-            </div>
-          </form>
+                <p className=" text-sm text-orange-500 mt-3 text-center">
+                  New here ?
+                  <Link to="/signUp">
+                    <span className=" m-2">Create a new account</span>
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
