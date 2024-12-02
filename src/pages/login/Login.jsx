@@ -11,10 +11,13 @@ import { Helmet } from "react-helmet-async";
 const Login = () => {
   const [disable, setDisable] = useState(true);
   const { signIn, setUser } = useContext(AuthContext);
-  console.log(signIn);
+
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+  console.log("state from login " , location.state);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -41,7 +44,7 @@ const Login = () => {
         });
         const user = result.user;
         setUser(user);
-        navigate(location.state || "/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -104,12 +107,13 @@ const Login = () => {
                   placeholder="write the text"
                   name="captcha"
                   className="input input-bordered"
-                  required
+                  
                 />
               </div>
               <div className="form-control mt-6">
                 <button
-                  disabled={disable}
+                // to do it will change later
+                  disabled={false}
                   type="submit"
                   className="btn btn-primary"
                 >

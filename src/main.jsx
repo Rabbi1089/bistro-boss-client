@@ -6,6 +6,10 @@ import { router } from "./routes/Rouets.jsx";
 import { HelmetProvider } from "react-helmet-async";
 import AuthProvider from "./provider/AuthProvider.jsx";
 
+
+// Create a client for TanStack
+const queryClient = new QueryClient()
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
