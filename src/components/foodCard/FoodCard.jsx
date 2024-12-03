@@ -3,27 +3,27 @@ import useAuth from "../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiousSecure from "../../hooks/useAxiousSecure";
-
+import useCart from "../../hooks/useCart";
 
 const FoodCard = ({ item }) => {
-  const { image, name, recipe, price , _id } = item;
+  const { image, name, recipe, price, _id } = item;
+  const [ , refetch] = useCart()
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const axiousSecure = useAxiousSecure()
+  const axiousSecure = useAxiousSecure();
 
-  const handleAddToCard = (item) => {
+  const handleAddToCard = () => {
     if (user && user.email) {
       console.log("object");
       const cartItem = {
-        menuId : _id ,
-        email : user.email,
+        menuId: _id,
+        email: user.email,
         name,
         price,
-        image
-      }
-      axiousSecure.post('/cart', cartItem)
-      .then(res => {
+        image,
+      };
+      axiousSecure.post("/cart", cartItem).then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
           Swal.fire({
@@ -31,10 +31,12 @@ const FoodCard = ({ item }) => {
             icon: "success",
             title: "Your food has been saved",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
+          //Fetching Data Again
+          refetch()
         }
-      })
+      });
     } else {
       console.log(" not logged");
       Swal.fire({
@@ -65,7 +67,7 @@ const FoodCard = ({ item }) => {
         <p>{recipe}</p>
         <div className="card-actions">
           <button
-            onClick={() => handleAddToCard(item)}
+            onClick={handleAddToCard}
             className="btn btn-outline bg-slate-100  border-0 border-b-4 text-orange-500 border-orange-400 mt-4 uppercase"
           >
             add to cart
