@@ -29,7 +29,7 @@ const FoodCard = ({ item }) => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Your food has been saved",
+            title: `${name} has been saved`,
             showConfirmButton: false,
             timer: 1500,
           });

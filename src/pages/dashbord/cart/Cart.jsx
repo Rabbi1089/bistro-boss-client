@@ -3,24 +3,45 @@ import useCart from "../../../hooks/useCart";
 import SectionTitle from "../../../components/section title/SectionTitle";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { FaAddressCard, FaRemoveFormat, FaTrash } from "react-icons/fa";
+import useAxiousSecure from "../../../hooks/useAxiousSecure";
+import Swal from "sweetalert2";
 
 const Cart = () => {
-  const [cart] = useCart();
-  console.log(cart);
-
+  const [cart, refetch] = useCart();
+  const axiousSecure = useAxiousSecure();
   const totalprice = cart.reduce((total, item) => total + item.price, 0);
-  const ceilPrice = Math.ceil(totalprice)
+  const ceilPrice = Math.ceil(totalprice);
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiousSecure.delete(`/cart/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
 
   return (
     <div>
-      <SectionTitle
-        heading="WANNA ADD MORE?"
-        subHeading="My Cart"
-      ></SectionTitle>
-      <div className=" flex justify-evenly">
-        <h1 className=" text-3xl">Total orders : {cart.length}</h1>
-        <h1 className=" text-3xl">Total Price : {ceilPrice}</h1>
+      <div className="flex justify-evenly">
+        <h1 className="text-3xl">Total orders : {cart.length}</h1>
+        <h1 className="text-3xl">Total Price : {ceilPrice}</h1>
         <button className="btn btn-info bg-yellow-600 border-none hover:bg-white">
           Pay
         </button>
@@ -30,6 +51,7 @@ const Cart = () => {
           {/* head */}
           <thead>
             <tr>
+              <th>#</th>
               <th>ITEM IMAGE</th>
               <th>ITEM NAME</th>
               <th>PRICE</th>
@@ -38,8 +60,9 @@ const Cart = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {cart.map((item) => (
+            {cart.map((item, idx) => (
               <tr key={item._id}>
+                <td>{idx + 1}</td>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -55,7 +78,14 @@ const Cart = () => {
                 <td>{item.name}</td>
                 <td>$ {item.price}</td>
                 <th>
-                  <button className="btn btn-ghost btn-xs"><FaTrash></FaTrash></button>
+                  <button
+                    onClick={() => {
+                      handleDelete(item._id);
+                    }}
+                    className="btn btn-ghost btn-lg"
+                  >
+                    <FaTrash className=" text-red-500"></FaTrash>
+                  </button>
                 </th>
               </tr>
             ))}

@@ -9,10 +9,12 @@ import {
 } from "react-icons/fa";
 import { FaBagShopping, FaTimeline } from "react-icons/fa6";
 import { NavLink, Outlet } from "react-router-dom";
+import useCart from "../hooks/useCart";
 
 const DashBoard = () => {
+    const [cart] = useCart()
   return (
-    <div className=" flex">
+    <div className=" flex text-black">
       {/* sidebar */}
       <div className=" bg-yellow-600 p-4 max-w-72 min-h-screen">
         <h1 className=" text-4xl text-center my-8">
@@ -47,7 +49,7 @@ const DashBoard = () => {
             <NavLink to="dashBoard/cart">
               <div className=" flex items-center gap-2">
                 <FaCartArrowDown></FaCartArrowDown>
-                my cart
+                my cart ({cart.length})
               </div>
             </NavLink>
           </li>

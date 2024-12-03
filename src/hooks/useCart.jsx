@@ -8,8 +8,6 @@ const useCart = () => {
   //tanstack query
   const axiousSecure = useAxiousSecure();
   const {user} = useAuth()
-  console.log(user);
-  console.log(user);
   const { refetch , data: cart = [] } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
