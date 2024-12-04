@@ -2,11 +2,15 @@ import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiousPublic from "../../hooks/useAxiousPublic";
+import SocialLogin from "../../components/social login/SocialLogin";
 
 const SignUp = () => {
   const { createUser, setUser, updateUserProfile } = useContext(AuthContext);
+  const axiousPublic = useAxiousPublic();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -18,22 +22,26 @@ const SignUp = () => {
     createUser(data.email, data.password)
       .then((result) => {
         const currentUser = result.user;
+        updateUserProfile(data.name, data.ImgUrl).then(() => {
+          setUser(currentUser);
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
 
-        updateUserProfile(data.name, data.ImgUrl)
-          .then(() => {
-            setUser(currentUser);
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "account created successfully",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          })
-          .catch((error) => {
-            // An error occurred
-            // ...
+          axiousPublic.post("user", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              navigate('/')
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "account created successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
           });
+        });
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -141,6 +149,7 @@ const SignUp = () => {
                 <button type="submit" className="btn btn-primary">
                   SignUp
                 </button>
+                <SocialLogin/>
                 <p className=" text-sm text-orange-500 mt-3 text-center">
                   already have a account ?
                   <Link to="/login">
