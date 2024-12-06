@@ -1,33 +1,48 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import useAxiousPublic from "../../hooks/useAxiousPublic";
 
 const SocialLogin = () => {
-  const  {signInWithGoogle} = useContext(AuthContext)
-  const navigate = useNavigate()
+  const { signInWithGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const axiousPublic = useAxiousPublic();
 
   const handleGoogleLogin = () => {
     signInWithGoogle()
-    .then((result) => {
-        const user = result.user;
-        console.log(user);
-        navigate('/')
-      }).catch((error) => {
+      .then((result) => {
+        console.log(result.user);
+        const userInfo = {
+          email: result.user.email,
+          name: result.user.displayName,
+        };
+        axiousPublic.post("user", userInfo).then((res) => {
+          console.log(res.data);
+          navigate("/");
+        });
+      })
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode , errorMessage);
+        console.log(errorCode, errorMessage);
       });
-  }
+  };
 
   return (
     <div>
       <div className="flex items-center pt-4 space-x-1">
         <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
-        <p className="px-3 text-sm text-gray-600">go with your social accounts</p>
+        <p className="px-3 text-sm text-gray-600">
+          go with your social accounts
+        </p>
         <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
       </div>
       <div className="flex justify-center space-x-4">
-        <button onClick={handleGoogleLogin} aria-label="Log in with Google" className="p-3 rounded-sm">
+        <button
+          onClick={handleGoogleLogin}
+          aria-label="Log in with Google"
+          className="p-3 rounded-sm"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 32 32"

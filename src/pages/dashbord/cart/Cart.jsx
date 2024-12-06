@@ -7,7 +7,9 @@ import useAxiousSecure from "../../../hooks/useAxiousSecure";
 import Swal from "sweetalert2";
 
 const Cart = () => {
+
   const [cart, refetch] = useCart();
+  console.log(cart);
   const axiousSecure = useAxiousSecure();
   const totalprice = cart.reduce((total, item) => total + item.price, 0);
   const ceilPrice = Math.ceil(totalprice);
