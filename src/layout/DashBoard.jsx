@@ -50,7 +50,7 @@ const DashBoard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="dashBoard/payment">
+                <NavLink to="/dashBoard/manageItem">
                   <div className=" flex items-center gap-2">
                     <FaNoteSticky></FaNoteSticky>
                     manage items
