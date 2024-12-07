@@ -17,9 +17,10 @@ import {
 } from "react-icons/fa6";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 
 const DashBoard = () => {
-  const isAdmin = true;
+  const [isAdmin] = useAdmin()
   const [cart] = useCart();
   return (
     <div className=" flex text-black">
