@@ -42,8 +42,8 @@ const DashBoard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="dashBoard/reservation">
-                  <div className=" flex items-center gap-2">
+                <NavLink to="/dashBoard/addItem">
+                  <div className="flex items-center gap-2">
                     <FaSpoon></FaSpoon>
                     add items
                   </div>
