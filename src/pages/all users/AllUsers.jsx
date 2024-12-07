@@ -45,7 +45,7 @@ const AllUsers = () => {
   const handleAdminRule = (user) => {
     axiousSecure.patch(`/user/admin/${user._id}`).then((res) => {
       if (res.data.modifiedCount) {
-        refetch()
+        refetch();
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -85,7 +85,7 @@ const AllUsers = () => {
                   <td>{user.email}</td>
                   <td>
                     {" "}
-                    {user.role === 'admin' ? (
+                    {user.role === "admin" ? (
                       <p className=" text-yellow-600 text-xl">Admin</p>
                     ) : (
                       <button
