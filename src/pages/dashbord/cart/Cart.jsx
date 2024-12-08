@@ -1,13 +1,11 @@
 import React from "react";
 import useCart from "../../../hooks/useCart";
-import SectionTitle from "../../../components/section title/SectionTitle";
-import { FaDeleteLeft } from "react-icons/fa6";
-import { FaAddressCard, FaRemoveFormat, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import useAxiousSecure from "../../../hooks/useAxiousSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-
   const [cart, refetch] = useCart();
   console.log(cart);
   const axiousSecure = useAxiousSecure();
@@ -44,9 +42,17 @@ const Cart = () => {
       <div className="flex justify-evenly">
         <h1 className="text-3xl">Total orders : {cart.length}</h1>
         <h1 className="text-3xl">Total Price : {ceilPrice}</h1>
-        <button className="btn btn-info bg-yellow-600 border-none hover:bg-white">
-          Pay
-        </button>
+        {cart.length ? (
+          <Link to="/dashBoard/payment">
+            <button className="btn btn-info bg-yellow-600 border-none hover:bg-white">
+              Pay
+            </button>
+          </Link>
+        ) : (
+          <button disabled className="btn btn-info bg-yellow-600 border-none hover:bg-white">
+            Pay
+          </button>
+        )}
       </div>
       <div className="overflow-x-auto">
         <table className="table">

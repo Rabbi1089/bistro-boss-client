@@ -34,7 +34,7 @@ const DashBoard = () => {
             <>
               {" "}
               <li>
-                <NavLink to="dashBoard/userHome">
+                <NavLink to="/dashBoard/adminHome">
                   <div className=" flex items-center gap-2">
                     <FaHome></FaHome>
                     Admin Home
@@ -58,7 +58,7 @@ const DashBoard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="dashBoard/cart">
+                <NavLink to="/dashBoard/cart">
                   <div className=" flex items-center gap-2">
                     <FaBook></FaBook>
                     Manage bookings
@@ -78,7 +78,7 @@ const DashBoard = () => {
             <>
               {" "}
               <li>
-                <NavLink to="dashBoard/userHome">
+                <NavLink to="/dashBoard/userHome">
                   <div className=" flex items-center gap-2">
                     <FaHome></FaHome>
                     User Home
@@ -134,7 +134,7 @@ const DashBoard = () => {
             <NavLink to="/">
               <div className=" flex items-center gap-2">
                 <FaHome />
-                Home
+              Home
               </div>
             </NavLink>
           </li>
