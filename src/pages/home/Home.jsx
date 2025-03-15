@@ -16,6 +16,7 @@ const Home = () => {
             <PopularItem />
             <Feature />
             <Testimonial />
+            <h1>I am fazla rabbi --- version 1 </h1>
         </div>
     );
 
