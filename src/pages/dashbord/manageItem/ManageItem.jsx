@@ -2,11 +2,33 @@ import React from "react";
 import SectionTitle from "../../../components/section title/SectionTitle";
 import { Helmet } from "react-helmet-async";
 import UseMenu from "../../../hooks/UseMenu";
-import { RiH1 } from "react-icons/ri";
+import Swal from "sweetalert2";
+import useAxiousSecure from "../../../hooks/useAxiousSecure";
+import useAxiousPublic from "../../../hooks/useAxiousPublic";
 
 const ManageItem = () => {
-  const [menu] = UseMenu();
-  //toDo : manage delete and update option
+  const [menu, , refetch] = UseMenu();
+  const [axiosSecure] = useAxiousSecure();
+  const handleDelete = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then( (result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/menu/${item._id}`)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+      }
+    });
+  };
+
   return (
     <div>
       <Helmet>
@@ -30,9 +52,9 @@ const ManageItem = () => {
             </tr>
           </thead>
           <tbody>
-            {menu.map((item , idx) => (
+            {menu.map((item, idx) => (
               <tr key={item._id}>
-                <th>{idx+1}</th>
+                <th>{idx + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -48,8 +70,14 @@ const ManageItem = () => {
                 <td>{item.name}</td>
                 <td>{item.price}</td>
                 <th>
-                
-                  <button className="btn btn-ghost btn-xs">Delete</button>
+                  <button
+                    onClick={() => {
+                      handleDelete(item);
+                    }}
+                    className="btn btn-ghost btn-xs"
+                  >
+                    Delete
+                  </button>
                 </th>
                 <th>
                   <button className="btn btn-ghost btn-xs">Update</button>

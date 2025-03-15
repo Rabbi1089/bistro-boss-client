@@ -1,13 +1,13 @@
 
 import useAxiousSecure from "./useAxiousSecure";
 import { useQuery } from "@tanstack/react-query";
-import { AuthContext } from "../provider/AuthProvider";
 import useAuth from "./useAuth";
 
 const useCart = () => {
+  const {user , loading} = useAuth()
   //tanstack query
-  const axiousSecure = useAxiousSecure();
-  const {user} = useAuth()
+  const [axiousSecure] = useAxiousSecure();
+ 
   const { refetch , data: cart = [] } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {

@@ -5,12 +5,12 @@ import { useQuery } from '@tanstack/react-query';
 
 const useAdmin = () => {
     const {user} = useAuth();
-    const axiousSecure = useAxiousSecure();
+    const [axiousSecure] = useAxiousSecure();
     const { data : isAdmin , isPending : isAdminLoading} = useQuery({
         queryKey: [user?.email , 'isAdmin'],
         queryFn: async() => {
             const res = await axiousSecure.get(`/users/admin/${user.email}`)
-            //console.log(res.data);
+            console.log(res.data);
             return res.data?.admin
         }
       })

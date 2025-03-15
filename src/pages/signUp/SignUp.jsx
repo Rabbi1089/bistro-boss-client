@@ -28,6 +28,7 @@ const SignUp = () => {
             name: data.name,
             email: data.email,
           };
+          console.log(userInfo);
 
           axiousPublic.post("user", userInfo).then((res) => {
             if (res.data.insertedId) {

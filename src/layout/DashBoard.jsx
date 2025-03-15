@@ -20,7 +20,8 @@ import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
 
 const DashBoard = () => {
-  const [isAdmin] = useAdmin()
+  const isAdmin = useAdmin()
+  console.log(isAdmin);
   const [cart] = useCart();
   return (
     <div className=" flex text-black">

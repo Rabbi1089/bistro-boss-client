@@ -26,8 +26,10 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
+        console.log('currentUser founf',currentUser);
         const userInfo = { email: currentUser.email };
         axiousPublic.post('/jwt', userInfo).then((res) => {
+          console.log('find token ', res.data.token);
           if (res.data.token) {
             localStorage.setItem('access-token' , res.data.token)
           }

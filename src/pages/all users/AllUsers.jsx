@@ -3,15 +3,15 @@ import useAxiousSecure from "../../hooks/useAxiousSecure";
 import { useQuery } from "@tanstack/react-query";
 import { FaTrash, FaUser, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
+import useAxiousPublic from "../../hooks/useAxiousPublic";
 
 const AllUsers = () => {
-  const axiousSecure = useAxiousSecure();
+  const axiosPublic = useAxiousPublic();
 
   const { refetch, data: users = [] } = useQuery({
-    //
     queryKey: ["user"],
     queryFn: async () => {
-      const res = await axiousSecure.get("user");
+      const res = await axiosPublic.get("/user");
       return res.data;
     },
   });
@@ -28,7 +28,8 @@ const AllUsers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const id = user._id;
-        axiousSecure.delete(`/user/${id}`).then((res) => {
+        axiosPublic.delete(`/user/${id}`).then((res) => {
+          console.log('axiosPublic.delete(`/user/${id}`).then((res) => {');
           if (res.data.deletedCount) {
             refetch();
             Swal.fire({
@@ -43,7 +44,7 @@ const AllUsers = () => {
   };
 
   const handleAdminRule = (user) => {
-    axiousSecure.patch(`/user/admin/${user._id}`).then((res) => {
+    axiosSecure.patch(`/user/admin/${user._id}`).then((res) => {
       if (res.data.modifiedCount) {
         refetch();
         Swal.fire({
