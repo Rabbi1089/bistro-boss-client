@@ -16,9 +16,9 @@ const Home = () => {
             <PopularItem />
             <Feature />
             <Testimonial />
-            <h1>test for git reset</h1>
         </div>
     );
+
 };
 
 export default Home;

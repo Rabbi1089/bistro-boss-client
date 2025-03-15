@@ -51,12 +51,6 @@ const Login = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Incorrect UseName or Password",
-     
-        });
       });
   };
   return (

@@ -11,7 +11,7 @@ const FoodCard = ({ item }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [axiousSecure] = useAxiousSecure();
+  const axiousSecure = useAxiousSecure();
 
   const handleAddToCard = () => {
     if (user && user.email) {

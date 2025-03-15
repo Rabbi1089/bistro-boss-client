@@ -1,0 +1,26 @@
+[33meba6b29[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Revert "solve dashboard issue"
+[33ma6f74cb[m[33m ([m[1;31morigin/main[m[33m)[m Merge branch 'main' of https://github.com/Rabbi1089/bistro-boss-client
+[33m9627016[m solve dashboard issue
+[33mcee3c31[m Update README.md
+[33m56bae26[m add different dashboard for user and admin
+[33m561cd92[m add page to display item
+[33m59549d8[m save menu item to the server
+[33me4954e5[m create admin route for admin access
+[33m729de98[m Logout unauthorized access and check is admin with use admin hooks
+[33m146edc4[m add interceptors to token authorization
+[33m19c87ca[m add user in all user , add delete option and add user role
+[33m8823f3c[m add social login
+[33m8d6b372[m add delete button on dashboard
+[33m60785db[m show ordered item in dashboard
+[33m34a378b[m show cart item count in navbar
+[33m8746cf5[m add ordered food in db
+[33m8822947[m add cart option
+[33m27b34d1[m add login and signIn
+[33mb1634c1[m add firebase for authentication
+[33m6c5edd9[m setup capcha and recapcha
+[33m75a8221[m load menu data from server
+[33mba4f13b[m Display food item with category tabs
+[33md3d13b3[m add dynamic title with helmet and add our menu with react parallax
+[33m0806775[m add testimonials ,popular menu , rating  and menu with Parallax scrolling
+[33m7e00d92[m add carosol and title
+[33m9cef1a2[m initial project setup and add slider from 'react-awesome-slider'

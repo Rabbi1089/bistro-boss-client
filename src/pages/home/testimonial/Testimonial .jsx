@@ -37,6 +37,7 @@ const Testimonial = () => {
                 readOnly
               />
               <p className=" mt-4">{review.details}</p>
+              <p className=" mt-4">checking revert</p>
               <h3 className=" text-4xl text-yellow-600"> {review.name}</h3>
             </div>
           </SwiperSlide>
