@@ -16,7 +16,10 @@ const Home = () => {
             <PopularItem />
             <Feature />
             <Testimonial />
+<<<<<<< HEAD
             <h1>I am fazla rabbi --- version 1 </h1>
+=======
+>>>>>>> parent of 9627016 (solve dashboard issue)
         </div>
     );
 

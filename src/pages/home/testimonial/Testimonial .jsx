@@ -38,7 +38,6 @@ const Testimonial = () => {
               />
               <p className=" mt-4">{review.details}</p>
               <h3 className=" text-4xl text-yellow-600"> {review.name}</h3>
-              <p>I am version one</p>
             </div>
           </SwiperSlide>
         ))}

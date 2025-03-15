@@ -33,7 +33,7 @@ const FoodCard = ({ item }) => {
             showConfirmButton: false,
             timer: 1500,
           });
-          //Fetching Data Again
+          //reload Data Again
           refetch()
         }
       });
